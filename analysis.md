@@ -13,7 +13,7 @@ of a steal, and all these 4 actors occur twice then loop has occurred. This assu
 a pair broken by a stronger pair should not be reversable. In reality a unstable data set may not be possible
 but I haven't mathmatically proven that.
 
-### Complexity
+### Time Complexity
 
 The problem input data is items with preferences across all other items, so is n^2 in total, however iteration 
 through all of these isn't a given for the solution.
@@ -28,20 +28,20 @@ of first choices so Omega(n). Average case would consider both the average depth
 as well as the probability of steals. There is no reason to assume either the preference depth or steal probability 
 are less than a fraction of a multiple of n each, so Theta(n^3).
 
-### Memory and Streaming/Batching
+### Space Complexity
 
-The algorthm enumerates the input keys, and accesses indexed preferences per item when needed, so can easily stream the 
-input. Maintaining orphaned items (for re-allocation), does require memory, but could be queued and enumerated via a data store for
+Regarding input memory: The algorthm enumerates the input keys, and accesses indexed preferences per item when needed, so can easily stream the 
+input. So: O(1).
+Regarding auxiliary memory: Maintaining orphaned items (for re-allocation), does require memory, up to O(n). This could be queued and enumerated via a data store for
 a larger data set, if frequent steals are experienced overflowing memory.
 
-The dataset is left as a string for names of items. Prior mapping of this to an integer identifier would have speed up in data streaming
-and in memory capacity, and in comparison operations throughout the algorithm, causing a constant multiplier reduction in complexity.  
+Note: The dataset is left as a string for names of items. Prior mapping of this to an integer identifier would improve memory utilisation, and in comparison operations throughout the algorithm, causing a constant multiplier reduction in space complexity.  
 
 ### Parallelisation and Processor utilisation
 
 The algorithm could be parallelised to deal with separate items per thread, but would need a row level write lock to avoid race conditions.
 
-There are no gains to be made my processor matrix operations.
+There are no gains to be made by processor matrix operations.
 
 ### Potential improvements
 
@@ -60,11 +60,12 @@ International Conference on Informatics Education and Research for Knowledge-Cir
 
 The fundemental difference in algorithms is that Gale-Shapley algorithm only enumerates one preference per allocation attempt
 (and so doesn't iterate them), so the preferences are enumerated as part of the steal attempts, resulting in the two being entwinned, 
-hence the reduction from O(n^3) to O(n^2). 
-Note: that the preference enumeration is achieved through queuing, thus adding no additional memory constraints than mentioned in the above analysis.
-Note: to ensure the CanSteal function doesn't need to iterate the preferences, the preferences are pre-processed into ranks (dictionary of name to 
-index). This pre-process step is itself O(n^2), so is only an addition of same complexity to the overal algorithm, which doesn't affect the overall
-O(n^2). 
+hence the reduction in time complexity from O(n^3) to O(n^2). 
+
+To ensure the CanSteal function doesn't need to iterate the preferences, the preferences are pre-processed into ranks (dictionary of name to 
+index). This pre-process step is itself time complexity O(n^2), so is only an addition of same complexity to the overal algorithm, which doesn't affect the overall
+O(n^2). It does increase auxilliary memory utilisation as an additional and final space complexity of O(n^2).
+Note: that the preference enumeration is achieved through queuing, thus adding no additional memory constraints or space complexity.
 
 Also the Gale-Shapley algorithm focuses on attempt iterations over the first set, without iterating the second set, simplifying the 
 solution without adding any increase in complexity class.
