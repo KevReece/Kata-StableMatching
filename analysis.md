@@ -69,3 +69,5 @@ Note: that the preference enumeration is achieved through queuing, thus adding n
 
 Also the Gale-Shapley algorithm focuses on attempt iterations over the first set, without iterating the second set, simplifying the 
 solution without adding any increase in complexity class.
+
+Finally the Gale-Shapley implementation is easily observable as always reaching a stable result, as it enumerates through preferences in one direction (with enough partners for all).
