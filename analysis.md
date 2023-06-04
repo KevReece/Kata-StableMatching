@@ -1,6 +1,9 @@
 Analysis
 ---
 
+Note: The following is a personal attempt to solve the problem and notably wasn't the most efficient, however 
+the official Gale-Shapley solution is also analysed below.
+
 At a high level the solution enumerates the items, doing a allocation based on source item preference, 
 and when the partner item is already allocated an attempt to steal is made, before trying the next item's 
 preference. The list of items to enumerate grows as steals are succeeded causing orphaned items.

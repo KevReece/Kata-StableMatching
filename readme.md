@@ -8,6 +8,8 @@ Normally this is as hetrosexual monogomous preferences between a set of women an
 
 The goal is to find a stable matching, or to identify an unstable data set.
 
+Note: The following is a personal attempt to solve the problem and notably wasn't the most efficient, however the official Gale-Shapley solution is also below
+
 Run
 ---
 ```python
